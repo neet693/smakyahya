@@ -11,3 +11,20 @@ function switchSmart(panel, btn) {
     document.getElementById("panelStudents").style.display = "grid";
   }
 }
+
+async function updateVisitorCounter() {
+  try {
+    const response = await fetch(
+      "https://api.counterapi.dev/v1/sekolahyahya/visitors/up",
+    );
+
+    const data = await response.json();
+
+    document.getElementById("visitor-count").innerText =
+      data.count.toLocaleString("id-ID");
+  } catch (error) {
+    console.error("Counter Error:", error);
+  }
+}
+
+updateVisitorCounter();

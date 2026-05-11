@@ -762,3 +762,178 @@ section {
     font-size: 2.2rem;
   }
 }
+
+/* =========================
+   SCHOOL PARTNERSHIP
+========================= */
+
+.partner-section {
+  padding: 110px 6%;
+  background: #f8fafc;
+}
+
+.partner-grid {
+  margin-top: 50px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 220px;
+  gap: 18px;
+}
+
+.partner-item {
+  overflow: hidden;
+  border-radius: 24px;
+  position: relative;
+}
+
+.partner-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: 0.5s ease;
+}
+
+.partner-item:hover img {
+  transform: scale(1.06);
+}
+
+.partner-item.large {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.partner-item.wide {
+  grid-column: span 2;
+}
+
+/* =========================
+   VISITOR COUNTER
+========================= */
+
+.visitor-counter {
+  margin-top: 42px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+}
+
+.visitor-box {
+  padding: 18px 34px;
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+
+  display: flex;
+  align-items: center;
+  gap: 18px;
+
+  transition: transform 0.25s ease;
+}
+
+.visitor-box:hover {
+  transform: translateY(-2px);
+}
+
+.visitor-box span {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: rgba(255, 255, 255, 0.68);
+  font-weight: 600;
+}
+
+.visitor-box h3 {
+  font-size: 34px;
+  line-height: 1;
+  color: white;
+  font-weight: 800;
+}
+
+/* =========================
+   MOBILE IMPROVEMENTS
+========================= */
+
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    gap: 18px;
+    padding: 20px;
+  }
+
+  .nav-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+  }
+
+  .hero {
+    padding: 100px 20px 70px;
+  }
+
+  .hero h1 {
+    font-size: 42px;
+    line-height: 1.1;
+  }
+
+  .hero p {
+    font-size: 15px;
+  }
+
+  .hero-btns {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .hero-btns a {
+    width: 100%;
+    text-align: center;
+  }
+
+  .stats-inner,
+  .socio-grid,
+  .programs-grid,
+  .bk-grid,
+  .humas-grid,
+  .testi-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .journey-flow {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .partner-grid {
+    grid-template-columns: 1fr;
+    grid-auto-rows: 220px;
+  }
+
+  .partner-item.large,
+  .partner-item.wide {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+
+  .section-title {
+    font-size: 34px;
+    line-height: 1.2;
+  }
+
+  .cta-section h2 {
+    font-size: 36px;
+  }
+
+  .cta-meta {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
