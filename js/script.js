@@ -443,3 +443,139 @@ window.addEventListener("scroll", () => {
     nav.classList.remove("nav-scrolled");
   }
 });
+
+// ========================================
+// PROFILE PAGE INTERACTION
+// ========================================
+
+// NAVBAR SHADOW ON SCROLL
+
+const nav = document.querySelector("nav");
+
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 20) {
+    nav.style.boxShadow = "0 10px 30px rgba(0,0,0,0.08)";
+  } else {
+    nav.style.boxShadow = "none";
+  }
+});
+
+// ========================================
+// SMOOTH SCROLL
+// ========================================
+
+document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+  anchor.addEventListener("click", function (e) {
+    e.preventDefault();
+
+    const target = document.querySelector(this.getAttribute("href"));
+
+    if (target) {
+      target.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  });
+});
+
+// ========================================
+// SCROLL REVEAL ANIMATION
+// ========================================
+
+const revealItems = document.querySelectorAll(
+  ".vision-card, .value-card, .journey-card, .about-content",
+);
+
+const revealOnScroll = () => {
+  revealItems.forEach((item) => {
+    const windowHeight = window.innerHeight;
+    const revealTop = item.getBoundingClientRect().top;
+
+    if (revealTop < windowHeight - 100) {
+      item.classList.add("show");
+    }
+  });
+};
+
+window.addEventListener("scroll", revealOnScroll);
+
+revealOnScroll();
+
+// ========================================
+// COUNTER ANIMATION
+// ========================================
+
+const counters = document.querySelectorAll(".profile-stat h3");
+
+const animateCounter = (counter) => {
+  const targetText = counter.innerText;
+
+  const numericValue = parseInt(targetText.replace(/\D/g, ""));
+
+  if (isNaN(numericValue)) return;
+
+  let current = 0;
+
+  const increment = Math.ceil(numericValue / 40);
+
+  const updateCounter = () => {
+    current += increment;
+
+    if (current >= numericValue) {
+      counter.innerText = targetText;
+      return;
+    }
+
+    if (targetText.includes("+")) {
+      counter.innerText = current + "+";
+    } else if (targetText.includes("%")) {
+      counter.innerText = current + "%";
+    } else {
+      counter.innerText = current;
+    }
+
+    requestAnimationFrame(updateCounter);
+  };
+
+  updateCounter();
+};
+
+const counterObserver = new IntersectionObserver(
+  (entries, observer) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        animateCounter(entry.target);
+
+        observer.unobserve(entry.target);
+      }
+    });
+  },
+  {
+    threshold: 0.5,
+  },
+);
+
+counters.forEach((counter) => {
+  counterObserver.observe(counter);
+});
+
+// ========================================
+// HOVER EFFECT
+// ========================================
+
+const cards = document.querySelectorAll(
+  ".vision-card, .value-card, .journey-card",
+);
+
+cards.forEach((card) => {
+  card.addEventListener("mousemove", (e) => {
+    const rect = card.getBoundingClientRect();
+
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    card.style.setProperty("--x", `${x}px`);
+    card.style.setProperty("--y", `${y}px`);
+  });
+});
