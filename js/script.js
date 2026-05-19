@@ -276,3 +276,170 @@ revealStyle.innerHTML = `
 `;
 
 document.head.appendChild(revealStyle);
+
+// =========================================
+// PROGRAM PAGE INTERACTION
+// =========================================
+
+// Smooth Scroll
+document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+  anchor.addEventListener("click", function (e) {
+    e.preventDefault();
+
+    const target = document.querySelector(this.getAttribute("href"));
+
+    if (target) {
+      target.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  });
+});
+
+// =========================================
+// ACTIVE NAVIGATION
+// =========================================
+
+const sections = document.querySelectorAll("section");
+const navLinks = document.querySelectorAll(".nav-links a");
+
+window.addEventListener("scroll", () => {
+  let current = "";
+
+  sections.forEach((section) => {
+    const sectionTop = section.offsetTop - 140;
+    const sectionHeight = section.clientHeight;
+
+    if (scrollY >= sectionTop) {
+      current = section.getAttribute("id");
+    }
+  });
+
+  navLinks.forEach((link) => {
+    link.classList.remove("active");
+
+    if (link.getAttribute("href").includes(current)) {
+      link.classList.add("active");
+    }
+  });
+});
+
+// =========================================
+// CARD HOVER MICRO INTERACTION
+// =========================================
+
+const cards = document.querySelectorAll(".program-card");
+
+cards.forEach((card) => {
+  card.addEventListener("mousemove", (e) => {
+    const rect = card.getBoundingClientRect();
+
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    card.style.setProperty("--x", `${x}px`);
+    card.style.setProperty("--y", `${y}px`);
+  });
+});
+
+// =========================================
+// SCROLL REVEAL ANIMATION
+// =========================================
+
+const revealElements = document.querySelectorAll(
+  ".program-card, .journey-item, .facility-point",
+);
+
+const revealOnScroll = () => {
+  const triggerBottom = window.innerHeight * 0.88;
+
+  revealElements.forEach((el) => {
+    const boxTop = el.getBoundingClientRect().top;
+
+    if (boxTop < triggerBottom) {
+      el.classList.add("show");
+    }
+  });
+};
+
+window.addEventListener("scroll", revealOnScroll);
+
+revealOnScroll();
+
+// =========================================
+// HERO PARALLAX
+// =========================================
+
+const hero = document.querySelector(".program-hero");
+
+window.addEventListener("scroll", () => {
+  const offset = window.scrollY;
+
+  hero.style.backgroundPositionY = `${offset * 0.4}px`;
+});
+
+// =========================================
+// NUMBER COUNTER ANIMATION
+// =========================================
+
+const counters = document.querySelectorAll(".program-stat h3");
+
+const animateCounter = (counter) => {
+  const targetText = counter.innerText;
+
+  const numericValue = parseInt(targetText);
+
+  if (isNaN(numericValue)) return;
+
+  let current = 0;
+
+  const increment = numericValue / 40;
+
+  const updateCounter = () => {
+    current += increment;
+
+    if (current < numericValue) {
+      counter.innerText = Math.ceil(current) + "+";
+
+      requestAnimationFrame(updateCounter);
+    } else {
+      counter.innerText = targetText;
+    }
+  };
+
+  updateCounter();
+};
+
+const counterObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        animateCounter(entry.target.querySelector("h3"));
+
+        counterObserver.unobserve(entry.target);
+      }
+    });
+  },
+  {
+    threshold: 0.6,
+  },
+);
+
+document.querySelectorAll(".program-stat").forEach((stat) => {
+  counterObserver.observe(stat);
+});
+
+// =========================================
+// MOBILE NAV TOGGLE (OPTIONAL)
+// =========================================
+
+const nav = document.querySelector("nav");
+
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 20) {
+    nav.classList.add("nav-scrolled");
+  } else {
+    nav.classList.remove("nav-scrolled");
+  }
+});
