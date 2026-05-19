@@ -29,26 +29,56 @@ async function updateVisitorCounter() {
 
 updateVisitorCounter();
 
-// Galery Script
-const filterButtons = document.querySelectorAll(".filter-btn");
-const cards = document.querySelectorAll(".gallery-card");
+// =========================================
+// GALLERY FILTER
+// =========================================
+
+const filterButtons = document.querySelectorAll(".gallery-filter-btn");
+const galleryCards = document.querySelectorAll(".gallery-card");
 
 filterButtons.forEach((button) => {
   button.addEventListener("click", () => {
-    filterButtons.forEach((btn) => btn.classList.remove("active"));
+    // REMOVE ACTIVE
+    filterButtons.forEach((btn) => {
+      btn.classList.remove("active");
+    });
+
+    // ADD ACTIVE
     button.classList.add("active");
 
+    // GET FILTER
     const filter = button.dataset.filter;
 
-    cards.forEach((card) => {
+    // FILTER CARDS
+    galleryCards.forEach((card) => {
       const category = card.dataset.category;
 
       if (filter === "all" || category === filter) {
         card.style.display = "block";
+
+        requestAnimationFrame(() => {
+          card.style.opacity = "1";
+          card.style.transform = "translateY(0)";
+        });
       } else {
-        card.style.display = "none";
+        card.style.opacity = "0";
+        card.style.transform = "translateY(10px)";
+
+        setTimeout(() => {
+          card.style.display = "none";
+        }, 200);
       }
     });
   });
 });
-// End of Galery Script
+
+// =========================================
+// INITIAL CARD ANIMATION
+// =========================================
+
+galleryCards.forEach((card) => {
+  card.style.transition = "opacity 0.25s ease, transform 0.25s ease";
+
+  card.style.opacity = "1";
+  card.style.transform = "translateY(0)";
+});
