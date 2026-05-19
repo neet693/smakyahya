@@ -1,0 +1,279 @@
+/* =========================================
+   IMAGE OVERLAY
+========================================= */
+
+.facility-image {
+  position: relative;
+}
+
+.facility-image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: linear-gradient(
+    to top,
+    rgba(13, 39, 68, 0.32),
+    rgba(13, 39, 68, 0.04)
+  );
+
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.facility-card:hover .facility-image::after {
+  opacity: 1;
+}
+
+/* =========================================
+   FACILITY CARD DEPTH
+========================================= */
+
+.facility-card {
+  position: relative;
+}
+
+.facility-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  border-radius: 18px;
+
+  background: linear-gradient(
+    135deg,
+    rgba(245, 166, 35, 0.04),
+    transparent 40%
+  );
+
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+
+.facility-card:hover::before {
+  opacity: 1;
+}
+
+/* =========================================
+   SECTION AMBIENT EFFECT
+========================================= */
+
+.facilities-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.facilities-section::before {
+  content: "";
+  position: absolute;
+
+  width: 420px;
+  height: 420px;
+
+  border-radius: 50%;
+
+  background: radial-gradient(rgba(245, 166, 35, 0.08), transparent 70%);
+
+  top: -180px;
+  right: -120px;
+
+  pointer-events: none;
+}
+
+.facilities-section::after {
+  content: "";
+  position: absolute;
+
+  width: 320px;
+  height: 320px;
+
+  border-radius: 50%;
+
+  background: radial-gradient(rgba(11, 122, 99, 0.08), transparent 70%);
+
+  bottom: -140px;
+  left: -100px;
+
+  pointer-events: none;
+}
+
+/* =========================================
+   GLASS EFFECT
+========================================= */
+
+.facility-highlight-content {
+  background: rgba(255, 255, 255, 0.72);
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  border: 1px solid rgba(255, 255, 255, 0.5);
+
+  border-radius: 24px;
+
+  padding: 2rem;
+}
+
+/* =========================================
+   BUTTON IMPROVEMENTS
+========================================= */
+
+.facility-actions .btn-primary,
+.facility-actions .btn-outline,
+.facility-cta-box .btn-primary {
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.facility-actions .btn-primary:hover,
+.facility-cta-box .btn-primary:hover {
+  transform: translateY(-2px);
+
+  box-shadow: 0 12px 24px rgba(245, 166, 35, 0.2);
+}
+
+.facility-actions .btn-outline:hover {
+  transform: translateY(-2px);
+}
+
+/* =========================================
+   FACILITY TAG GLOW
+========================================= */
+
+.facility-tag,
+.facility-category {
+  position: relative;
+  overflow: hidden;
+}
+
+.facility-tag::before,
+.facility-category::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.45),
+    transparent
+  );
+
+  transform: translateX(-120%);
+}
+
+.facility-card:hover .facility-category::before,
+.facility-highlight:hover .facility-tag::before {
+  animation: shine 1s ease;
+}
+
+@keyframes shine {
+  100% {
+    transform: translateX(120%);
+  }
+}
+
+/* =========================================
+   TYPOGRAPHY POLISH
+========================================= */
+
+.facility-highlight-content p,
+.facility-content p,
+.facility-cta-box p {
+  text-wrap: pretty;
+}
+
+.facility-content h3 {
+  font-size: 1.05rem;
+  line-height: 1.4;
+}
+
+/* =========================================
+   IMAGE CONSISTENCY
+========================================= */
+
+.facility-image img,
+.facility-highlight-image img {
+  filter: saturate(1.02) contrast(1.01);
+}
+
+/* =========================================
+   ACCESSIBILITY
+========================================= */
+
+.btn-primary:focus-visible,
+.btn-outline:focus-visible {
+  outline: 3px solid rgba(245, 166, 35, 0.45);
+  outline-offset: 3px;
+}
+
+.facility-card:focus-within {
+  outline: 2px solid rgba(245, 166, 35, 0.35);
+  outline-offset: 4px;
+}
+
+/* =========================================
+   SMOOTH ENTRANCE
+========================================= */
+
+.facility-card {
+  animation: facilityFade 0.5s ease;
+}
+
+@keyframes facilityFade {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================================
+   LARGE SCREEN POLISH
+========================================= */
+
+@media (min-width: 1400px) {
+  .facility-hero-inner,
+  .facility-highlight-inner,
+  .section-inner {
+    max-width: 1280px;
+  }
+}
+
+/* =========================================
+   MOBILE POLISH
+========================================= */
+
+@media (max-width: 768px) {
+  .facility-highlight-content {
+    padding: 1.5rem;
+  }
+
+  .facility-card {
+    border-radius: 16px;
+  }
+
+  .facility-image img {
+    height: 220px;
+  }
+
+  .facility-highlight-image {
+    border-radius: 18px;
+  }
+
+  .facility-highlight-content h2 {
+    line-height: 1.2;
+  }
+
+  .facility-cta-box {
+    border-radius: 22px;
+  }
+}
